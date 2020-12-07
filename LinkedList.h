@@ -1,4 +1,4 @@
-#ifndef DataStructure_LinkedList_h
+#define DataStructure_LinkedList_h
 #define DataStructure_LinkedList_h
 
 enum boolean {
