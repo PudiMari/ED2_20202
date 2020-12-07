@@ -18,3 +18,25 @@
   *     3.2.16 removeData
   *4 LinkedListTest.c --> Kamilla
   */
+
+bool isEmpty(LinkedList *list){
+    return(list->size==0);
+}
+
+int enqueue(LinkedList *list, void *data){
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if(newNode==NULL) return -1;
+    newNode->data = data;
+    newNode->next = NULL;
+    if(isEmpty(list)) //se a lista estiver vazia
+        list->first = newMode; //novo nó é o primeiro
+    else{
+        Node *aux = list->first; //aux aponta para o primeiro
+        while(aux->next!=NULL) //enquanto não for o último nó
+            aux = aux->next; //aux avança para o nó seguinte
+        aux->next = newNode; //último nó aponta para o novo nó
+    }
+    list->size++;
+    return 1;
+}
+
