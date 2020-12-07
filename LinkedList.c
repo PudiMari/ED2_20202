@@ -18,7 +18,15 @@
   *     3.2.16 removeData
   *4 LinkedListTest.c --> Kamilla
   */
-
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include "LinkedList.h"
+ 
+//Init feito para inicializar a lista/fila by vinicius
+void init(LinkedList *list) {
+    list->first=NULL;
+    list->size=0;
+}
 bool isEmpty(LinkedList *list){
     return(list->size==0);
 }
@@ -29,7 +37,7 @@ int enqueue(LinkedList *list, void *data){
     newNode->data = data;
     newNode->next = NULL;
     if(isEmpty(list)) //se a lista estiver vazia
-        list->first = newMode; //novo nó é o primeiro
+        list->first = newNode; //novo nó é o primeiro
     else{
         Node *aux = list->first; //aux aponta para o primeiro
         while(aux->next!=NULL) //enquanto não for o último nó
@@ -38,5 +46,20 @@ int enqueue(LinkedList *list, void *data){
     }
     list->size++;
     return 1;
+}
+// retorna o primeiro valor da lista by vinicius
+void* first(LinkedList *list) {
+    return (isEmpty(list))?NULL:list->first->data;
+}
+//retorna o ultimo valor da lista by vinicius
+void* last(LinkedList *list) {
+    void *data = NULL;
+    if (!isEmpty(list)) {          //Se a lista não estiver vazia
+        Node *aux = list->first;   //aux aponta para o primeiro nó
+        while (aux->next != NULL)  //enquanto não for o último nó
+            aux = aux->next;       //aux avança para o nó seguinte
+        data = aux->data;          //endereço de memória do dado no último nó
+    }
+    return data;
 }
 
