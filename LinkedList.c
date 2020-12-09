@@ -75,3 +75,43 @@ void* pop(LinkedList *list) {
 void* top(LinkedList *list) {
     return first(list);
 }
+
+// remove um elemento da lista de uma posicao fornecida. by Leonardo
+void* removePos (LinkedList *list, int pos) {
+    if (isEmpty(list) || pos >=list->size)  // verifica se a lista esta vazia ou se a posicao fornecida eh invalida.
+        return NULL;
+
+    Node *nodeRemove = NULL; // variavel auxilar que aponta para o noh a ser removido.
+    Node *aux = NULL; // variavel auxiliar que aponta para o noh anterior ao que sera removido.
+
+    if (pos<=0) // verifica se eh o primeiro elemento da lista.
+        return dequeue(list); // se for o primeiro podemos aproveitar a funcao dequeue.
+    else 
+        aux = getNodeByPos(list, pos-1); // busca o elemento anterior da posicao a ser removida.
+    
+    // realiza a remocao.
+    nodeRemove = aux->next;
+    aux->next = nodeRemove->next; // faz com que o noh anterior aponte para o noh seguinte, pulando o elemento que sera removido.
+
+    void* dataRemove = nodeRemove->data;// salva o valor do elemento removido.
+    free(nodeRemove); // limpa o noh da memoria.
+    list->size--;// diminui um do tamanho da lista.
+
+    return dataRemove; // retorna o valor do elemento removido.
+}
+
+// retorna a posicao da lista de um elemento determinado. by Leonardo
+int indexOf (LinkedList *list, void *data, compare equal){
+    if (isEmpty (list)) // verifica se a lista esta vazia.
+        return -1; // se estiver vazia, retorna -1, identificando que eh invalida.
+
+    int count = 0;// variavel contadora, para as posicoes da lista.
+    Node *aux = list->first; // variavel auxiliar para navegar na lista.
+
+    while (aux!= NULL && !equal(aux->data, data)) {// enquanto nao chega no final da lista, e nao encontra o valor fornecido na lista, continua o loop.
+        aux = aux->next; // passa para o proximo elemento.
+        count++; // soma mais um na posicao.
+    }
+
+    return (aux==NULL) ?-1:count; // se aux igual a NULL, quer dizer que chegou no final da lista e nao encontrou o elemento, senao retorna a posicao onde parou.
+}
