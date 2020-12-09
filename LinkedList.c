@@ -27,10 +27,13 @@ void init(LinkedList *list) {
     list->first=NULL;
     list->size=0;
 }
+
+// isEmpty by naíra
 bool isEmpty(LinkedList *list){
     return(list->size==0);
 }
 
+// enqueue by naíra
 int enqueue(LinkedList *list, void *data){
     Node *newNode = (Node*)malloc(sizeof(Node));
     if(newNode==NULL) return -1;
