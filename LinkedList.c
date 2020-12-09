@@ -63,3 +63,15 @@ void* last(LinkedList *list) {
     return data;
 }
 
+}
+//para usar a pilha, reaproveita-se as opreações da fila
+
+//pop
+void* pop(LinkedList *list) {
+    return dequeue(list);
+}
+
+//top
+void* top(LinkedList *list) {
+    return first(list);
+}
