@@ -77,6 +77,21 @@ void* pop(LinkedList *list) {
 void* top(LinkedList *list) {
     return first(list);
 }
+//retorna o endereço do nó localizado em uma determinada posição da lista - by Katia
+Node* getNodeByPos(LinkedList *list, int pos) {
+    if (isEmpty(list) || pos>=list->size) return NULL;  //se lista vazia, ou posição maior que a lista, retorna null
+    Node *aux = list->first;   //guarda o endereço de first e guarda em uma variavel do tipo node
+    for (int count=0;(aux!=NULL && count<pos);count++,aux=aux->next); //laço para encontrar a posição
+    return aux; //aux guarda o endereço da posição encontrada no for
+}
+//retorna o conteúdo que está no endereço de nó retornado anteriormente - by Katia
+void* getPos(LinkedList *list, int pos) {
+    Node *aux = getNodeByPos(list,pos);  
+    if (aux==NULL)   //se o aux, não for nulo
+        return NULL;
+    else           //retorna o conteudo do nó encontrado
+        return aux->data;
+}
 
 //Adiciona uma lista dentro de outra lista a partir de uma determinada posição by Naíra
 int AddAll(LinkedList *listDest, int pos, LinkedList *listSource){
