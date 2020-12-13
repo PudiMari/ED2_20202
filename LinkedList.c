@@ -21,7 +21,7 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include "LinkedList.h"
- 
+
 //Init feito para inicializar a lista/fila by vinicius
 void init(LinkedList *list) {
     list->first=NULL;
@@ -66,6 +66,17 @@ void* last(LinkedList *list) {
     return data;
 }
 
+//retira o primeiro elemento da fila by Mariana
+void* dequeue(LinkedList *list) {
+    if (isEmpty(list)) return NULL;
+    Node *trash = list->first;       //variável que guarda o endereço do nó que será removido
+    list->first = list->first->next; //primeiro elemento passa a ser o segundo da lista
+    void *data = trash->data;        //dado do nó removido
+    free(trash);
+    list->size--;
+    return data;
+}
+
 //para usar a pilha, reaproveita-se as operações da fila
 
 //pop
@@ -77,6 +88,24 @@ void* pop(LinkedList *list) {
 void* top(LinkedList *list) {
     return first(list);
 }
+
+//adiciona na primeira posição um novo elemento by Mariana
+int push(LinkedList *list, void *data) {
+    Node *newNode = (Node*) malloc(sizeof(Node));
+    if (newNode==NULL) return -1;
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (isEmpty(list))               //se a lista estiver vazia
+        list->first = newNode;       //novo nó é o primeiro
+    else {
+        newNode->next = list->first; //o topo atual será o segundo da lista
+        list->first = newNode;       //o novo nó será o topo
+    }
+    list->size++;
+    return 1;
+}
+
 //retorna o endereço do nó localizado em uma determinada posição da lista - by Katia
 Node* getNodeByPos(LinkedList *list, int pos) {
     if (isEmpty(list) || pos>=list->size) return NULL;  //se lista vazia, ou posição maior que a lista, retorna null
@@ -86,7 +115,7 @@ Node* getNodeByPos(LinkedList *list, int pos) {
 }
 //retorna o conteúdo que está no endereço de nó retornado anteriormente - by Katia
 void* getPos(LinkedList *list, int pos) {
-    Node *aux = getNodeByPos(list,pos);  
+    Node *aux = getNodeByPos(list,pos);
     if (aux==NULL)   //se o aux, não for nulo
         return NULL;
     else           //retorna o conteudo do nó encontrado
@@ -122,9 +151,9 @@ void* removePos (LinkedList *list, int pos) {
 
     if (pos<=0) // verifica se eh o primeiro elemento da lista.
         return dequeue(list); // se for o primeiro podemos aproveitar a funcao dequeue.
-    else 
+    else
         aux = getNodeByPos(list, pos-1); // busca o elemento anterior da posicao a ser removida.
-    
+
     // realiza a remocao.
     nodeRemove = aux->next;
     aux->next = nodeRemove->next; // faz com que o noh anterior aponte para o noh seguinte, pulando o elemento que sera removido.
@@ -151,7 +180,7 @@ int indexOf (LinkedList *list, void *data, compare equal){
 
     return (aux==NULL) ?-1:count; // se aux igual a NULL, quer dizer que chegou no final da lista e nao encontrou o elemento, senao retorna a posicao onde parou.
 }
-// implementação do removeData - por Gustavo Lima 
+// implementação do removeData - por Gustavo Lima
 bool removeData(LinkedList *list, void *data, compare equal) {
     if (isEmpty(list)) return -1;
     Node *nodeRemove = NULL;
@@ -166,7 +195,7 @@ bool removeData(LinkedList *list, void *data, compare equal) {
         Node *aux = list->first;
         while(aux->next!=NULL && !equal(aux->next->data,data))
             aux=aux->next;
-    
+
         if (aux->next!=NULL) {
             Node *nodeRemove = aux->next;
             aux->next = nodeRemove->next;
@@ -180,22 +209,22 @@ bool removeData(LinkedList *list, void *data, compare equal) {
     }
 }
 
-// implementação da Função Add  - por Gustavo Lima 
+// implementação da Função Add  - por Gustavo Lima
 int add(LinkedList *list, int pos, void *data) {
     if (pos <= 0) return push(list,data);
     Node *aux = getNodeByPos(list, (pos-1));
     if (aux==NULL) return -2;
-    
+
     Node *newNode = (Node*) malloc(sizeof(Node));
     if (newNode==NULL) return -1;
-    
+
     newNode->data = data;
     newNode->next = NULL;
-    
+
     newNode->next = aux->next;
     aux->next = newNode;
-    
+
     list->size++;
-    
+
     return 1;
 }
