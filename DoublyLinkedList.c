@@ -28,15 +28,29 @@
  #include <stdlib.h>
  #include "DoublyLinkedList.h"
 
-// init
+// init by Vinicius
+void init(DoublyLinkedList *list) {
+    Node *trashNode = (Node*)malloc(sizeof(Node));
+    trashNode->data=NULL;
+    trashNode->previous=trashNode;
+    trashNode->next=trashNode;
+    list->first=trashNode;
+    list->size=0;
+}
 
 // enqueue
 
 // dequeue
 
-// first 
 
-// last 
+// first by vinicius
+void* first(DoublyLinkedList *list) {
+    return list->first->next->data;
+}
+// last by vinicius
+void* last(DoublyLinkedList *list) {
+    return list->first->previous->data;
+}
 
 // push
 
@@ -48,7 +62,7 @@ void* pop(DoublyLinkedList *list) {
 
 void* top(DoublyLinkedList *list) {
     return first(list);
-
+}
 // isEmpty
 
 // indexOf
