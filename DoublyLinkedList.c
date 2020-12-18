@@ -1,6 +1,6 @@
 /*
  * DoublyLinkedList.c (seguindo a estrutura de tópicos da LinkedList)
- * 
+ *
  * 3.1 LinkedList.h --> Kamilla
  * 3.2 LinkedList.c --> Kamilla
  *     3.2.1 init --> Vinícius
@@ -40,7 +40,21 @@ void init(DoublyLinkedList *list) {
 
 // enqueue
 
-// dequeue
+// dequeue by Mariana
+void* dequeue(DoublyLinkedList *list) {
+    if (isEmpty(list)) return NULL;
+    Node *trash = list->first;
+    Node *first = list->first->next;
+
+    first->next->previous = trash;
+    trash->next = first->next;
+
+    void *data = first->data;
+    free(first);
+    list->size--;
+
+    return data;
+}
 
 
 // first by vinicius
@@ -52,7 +66,21 @@ void* last(DoublyLinkedList *list) {
     return list->first->previous->data;
 }
 
-// push
+// push by Mariana
+int push(DoublyLinkedList *list, void *data) {
+    Node *newNode = (Node*) malloc(sizeof(Node));
+    if (newNode==NULL) return -1;
+    newNode->data = data;
+
+    newNode->next = list->first->next;
+    newNode->previous = list->first;
+    list->first->next->previous = newNode;
+    list->first->next = newNode;
+
+    list->size++;
+
+    return 1;
+}
 
 //pop e top
 
@@ -91,7 +119,7 @@ void* getPos(DoublyLinkedList *list,int pos) {
 
 //show
 
-// verificação do uso da memória durante a execução by Katia 
+// verificação do uso da memória durante a execução by Katia
 void showMem(DoublyLinkedList *list) {
     printf("Trash Node: %p\n\n",list->first);
     Node *aux = list->first->next;  //variavel aux começando do 2° nó
