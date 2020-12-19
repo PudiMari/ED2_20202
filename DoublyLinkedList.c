@@ -109,6 +109,39 @@ void* getPos(DoublyLinkedList *list,int pos) {
     return (res==NULL)?NULL:res->data;  //caso aux não seja null, retorna a posição encontrada
 }
 
+// retorna a posicao da lista de um elemento determinado. by Leonardo
+int indexOf (DoublyLinkedList *list, void *data, compare equal) {
+    if (isEmpty (list))// verifica se a lista esta vazia.
+        return -1; // se estiver vazia, retorna -1, indicando que eh invalida.
+
+    int count = 0;// variavel contadora, para as posicoes da lista.
+    Node *aux = list->first->next;// variavel auxiliar da lista.
+
+    while (aux!= list->first && !equal (aux->data, data)){
+        aux = aux->next; // passa para o proximo elemento.
+        count++; // incrementa mais um a contadora.
+    }
+
+    return (aux==list->first)?-1:count;
+}
+
+// remove um elemento da lista de uma posicao fornecida. by Leonardo
+void* removePos (DoublyLinkedList *list, int pos) {
+    if (isEmpty(list) || pos>= list->size) // verifica se a lista esta vazia ou se a posicao fornecida eh invalida.
+        return NULL;
+
+    Node *nodeRemove = getNodeByPos (list, pos); // variavel auxiliar que aponta para o noh a ser removido.
+
+    //realiza a remocao.
+    nodeRemove->previous->next = nodeRemove->next;
+    nodeRemove->next->previous = nodeRemove->previous;
+
+    void* dataRemove = nodeRemove->data; // salva o valor do elemento removido.
+    free (nodeRemove);// limpa o noh da memoria.
+    list->size--;// decrementa um do tamanho da lista.
+
+    return dataRemove;// retorna o valor do elemento removido.
+}
 // add
 
 // addAll
