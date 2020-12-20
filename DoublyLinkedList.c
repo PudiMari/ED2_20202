@@ -14,11 +14,11 @@
  *     3.2.9 push --> Mariana
  *     3.2.10 getNodeByPos --> Katia
  *     3.2.11 getPos --> Katia
- *     3.2.12 add --> Gustavo
- *     3.2.13 addAll
+ *     3.2.12 add
+ *     3.2.13 addAll --> Gustavo 
  *     3.2.14 removePos --> Leonardo
  *     3.2.15 indexOf --> Leonardo
- *     3.2.16 removeData--Gustavo
+ *     3.2.16 removeData
  *     3.2.17 show
  *     3.2.18 showMe -->Katia
  *4 LinkedListTest.c --> Kamilla
@@ -142,13 +142,48 @@ void* removePos (DoublyLinkedList *list, int pos) {
 
     return dataRemove;// retorna o valor do elemento removido.
 }
-// add
-
+// add by: Gustavo 
+int add(DoublyLinkedList *list, int pos, void *data) {
+    Node *aux = getNodeByPos(list, pos);
+    if (aux==NULL) return -2;
+    
+    Node *newNode = (Node*) malloc(sizeof(Node));
+    if (newNode==NULL) return -1;
+    
+    newNode->data = data;
+    newNode->next = aux;
+    newNode->previous = aux->previous;
+    
+    aux->previous->next = newNode;
+    aux->previous = newNode;
+    
+    list->size++;
+    
+    return 1;
+}
 // addAll
 
 //removePos
 
-//removeData
+//removeData by: Gustavo
+int removeData(DoublyLinkedList *list, void *data, compare equal) {
+    if (isEmpty(list)) return -1;
+    
+    Node *nodeRemove = list->first->next;
+    while(nodeRemove!=list->first && !equal(nodeRemove->data,data))
+        nodeRemove=nodeRemove->next;
+    
+    if (nodeRemove!=list->first) {
+        nodeRemove->previous->next = nodeRemove->next;
+        nodeRemove->next->previous = nodeRemove->previous;
+        free(nodeRemove->data);
+        free(nodeRemove);
+        list->size--;
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 //show
 
