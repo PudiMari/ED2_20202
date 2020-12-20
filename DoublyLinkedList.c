@@ -14,11 +14,11 @@
  *     3.2.9 push --> Mariana
  *     3.2.10 getNodeByPos --> Katia
  *     3.2.11 getPos --> Katia
- *     3.2.12 add
+ *     3.2.12 add --> Gustavo
  *     3.2.13 addAll
  *     3.2.14 removePos --> Leonardo
  *     3.2.15 indexOf --> Leonardo
- *     3.2.16 removeData
+ *     3.2.16 removeData--Gustavo
  *     3.2.17 show
  *     3.2.18 showMe -->Katia
  *4 LinkedListTest.c --> Kamilla
