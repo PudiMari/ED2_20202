@@ -14,12 +14,12 @@
  *     3.2.9 push --> Mariana
  *     3.2.10 getNodeByPos --> Katia
  *     3.2.11 getPos --> Katia
- *     3.2.12 add
- *     3.2.13 addAll --> Gustavo 
+ *     3.2.12 add --> Gustavo 
+ *     3.2.13 addAll --> Naíra
  *     3.2.14 removePos --> Leonardo
  *     3.2.15 indexOf --> Leonardo
  *     3.2.16 removeData
- *     3.2.17 show
+ *     3.2.17 show --> Naíra
  *     3.2.18 showMe -->Katia
  *4 LinkedListTest.c --> Kamilla
  */
@@ -38,7 +38,18 @@ void init(DoublyLinkedList *list) {
     list->size=0;
 }
 
-// enqueue
+//enqueue by Naíra
+int enqueue(DoublyLinkedList *list, void *data){
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if(newNode==NULL) return -1;
+    newNode->data = data;
+    newNode->next = list->first;
+    newNode->previous = list->first->previous;
+    list->first->previous->next = newNode;
+    list->first->previous = newNode;
+    list->size++;
+    return 1;
+}
 
 // dequeue by Mariana
 void* dequeue(DoublyLinkedList *list) {
@@ -91,7 +102,10 @@ void* pop(DoublyLinkedList *list) {
 void* top(DoublyLinkedList *list) {
     return first(list);
 }
-// isEmpty
+//isEmpty by Naíra
+bool isEmpty(DoublyLinkedList *list){
+    return (list->size==0);
+}
 
 // indexOf
 
@@ -161,7 +175,18 @@ int add(DoublyLinkedList *list, int pos, void *data) {
     
     return 1;
 }
-// addAll
+//addAll by Naíra
+int addAll(DoublyLinkedList *listDest, int pos, DoublyLinkedList *listSource){
+    Node *aux = getNodeByPos(listDest, pos);
+    if(aux==NULL) return -2; 
+    if(isEmpty(listSource)) return -1;
+    listSource->first->previous->next = aux;
+    listSource->first->next->previous = aux->previous;
+    aux->previous->next = listSource->first->next;
+    aux->previous = listSource->first->previous;
+    listDest->size+=listSource->size;
+    return listSource->size;
+}
 
 //removePos
 
@@ -185,7 +210,15 @@ int removeData(DoublyLinkedList *list, void *data, compare equal) {
     }
 }
 
-//show
+//show by Naíra
+void show(DoublyLinkedList *list, printNode print){
+    Node *aux = list->first->next;
+    while(aux!=list->first){
+        print(aux->data);
+        aux=aux->next;
+    }
+    printf("\n");
+}
 
 // verificação do uso da memória durante a execução by Katia
 void showMem(DoublyLinkedList *list) {
