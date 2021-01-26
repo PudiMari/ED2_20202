@@ -9,3 +9,17 @@
  *       5.2.7 showHashStruct - Leonardo
 *6 HashTest.c
 */
+#include <stdio.h>
+#include <stdlib.h>
+#include "Hash.h"
+
+// Struct-key - estrutura busca e inserção de chave: Gustavo  
+bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
+    //calcula a posição
+    int hashValue = hash(key);
+    //busca na fila a posição da chave
+    int pos = indexOf(&hashStruct->hashes[hashValue], key, equal); 
+    
+    return (pos!=-1)?true:false;
+}
+
