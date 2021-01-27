@@ -43,3 +43,15 @@ bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     return (pos!=-1)?true:false;
 }
 
+//put - função para inserir elementos na hash by Naíra 
+int put(HashStruct *hashStruct, char *key, void *data, compare equal){
+    if(!containsKey(hashStruct, key, equal)){
+        //Adiciona na fila que está na posição devolvida pela função hash
+        int res = enqueue(&hashStruct->hashes[hash(key)], data);
+        //Incrementa a quantidade de elementos baseado na quantidade inserida por enqueue
+        hashStruct->size+=res;
+        return res;
+    }
+    return 0;
+}
+
