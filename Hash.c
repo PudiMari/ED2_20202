@@ -21,6 +21,18 @@ void initHash(HashStruct *hashStruct) {
     }
     hashStruct->size = 0;
 }
+
+// Função Para calcular em que posição devemos inserir o elemento by Vinicius
+int hash(char *key) {
+    int sum = 0;
+    // percorremos todos os caracteres da string passada
+    for (int i = 0; key[i]!=0;i++) {
+         //acumulamos os códigos ascii de cada letra com um peso
+        sum+=key[i]*(i+1);
+    }
+    return sum%MAX; //retorna o resto da divisão
+}
+
 // Struct-key - estrutura busca e inserção de chave: Gustavo  
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     //calcula a posição
