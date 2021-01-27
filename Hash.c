@@ -13,6 +13,14 @@
 #include <stdlib.h>
 #include "Hash.h"
 
+//InitHash -  Inicialização da Hash by Vinicius
+void initHash(HashStruct *hashStruct) {
+    for (int i=0;i<MAX;i++) {
+        //chamando init de DoublyLinkedList para inicializar cada lista do vetor
+        init(&(hashStruct->hashes[i]));
+    }
+    hashStruct->size = 0;
+}
 // Struct-key - estrutura busca e inserção de chave: Gustavo  
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     //calcula a posição
