@@ -55,3 +55,12 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal){
     return 0;
 }
 
+// remove key para remover um par by Mariana
+void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
+    int hashValue = hash(key);
+    int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);
+    void* result = removePos(&hashStruct->hashes[hashValue], pos);
+    if (result!=NULL) hashStruct->size--;
+    return result;
+}
+
