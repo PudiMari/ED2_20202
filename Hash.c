@@ -54,6 +54,18 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal){
     }
     return 0;
 }
+// Get- função para buscas na estrutura - by: Katia
+void* get(HashStruct *hashStruct, char *key, compare equal) {
+    // descobre em qual fila/lista está o dado
+    int hashValue = hash(key);
+    //first é nó sentinela, começamos do segundo nó
+    Node *aux = hashStruct->hashes[hashValue].first->next;
+    // procura o dado na lista/fila
+    while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key))
+        aux=aux->next;   
+
+    return aux->data; //retorna o dado caso encontrado ou NULL caso encontre o first novamente
+}
 
 // remove key para remover um par by Mariana
 void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
