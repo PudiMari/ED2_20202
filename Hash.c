@@ -76,3 +76,12 @@ void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
     return result;
 }
 
+// exibe a tabela hash. by Leonardo
+void showHashStruct (HashStruct *hashStruct, printNode print) {
+    printf ("There are %d elements in the Hash\n\n", hashStruct->size);
+    for (int i = 0; i < MAX; i++) {
+        printf ("Hash %d has %d elements: ", i, hashStruct->hashes[i].size);
+        show(&hashStruct->hashes[i], print);
+        pritnf("\n");
+    }
+}
