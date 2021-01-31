@@ -10,7 +10,8 @@
 *6 HashTest.c
 */
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> 
+#include <string.h>
 #include "Hash.h"
 
 //InitHash -  Inicialização da Hash by Vinicius
@@ -82,6 +83,6 @@ void showHashStruct (HashStruct *hashStruct, printNode print) {
     for (int i = 0; i < MAX; i++) {
         printf ("Hash %d has %d elements: ", i, hashStruct->hashes[i].size);
         show(&hashStruct->hashes[i], print);
-        pritnf("\n");
+        printf("\n");
     }
 }
