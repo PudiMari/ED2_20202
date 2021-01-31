@@ -53,5 +53,13 @@ int main() {
     put(&hashes, c->email, c, comparaChaves);
        
     showHashStruct(&hashes, printCliente);
+    //testes by vini
+    //testando remoções: primeiro removeKey ira remover o ultimo email inserido na Hash no caso o da Carla
+    printf("\nTabela apos remocoes:\n\n");
+    removeKey(&hashes, c->email, comparaChaves);
+    // removeKey remove o email especifico do Pedro agora    
+    removeKey(&hashes, "pedro@email.com.br", comparaChaves);
+    //Visualizar as remoções
+    showHashStruct(&hashes, printCliente);
     return 0;
 } 
