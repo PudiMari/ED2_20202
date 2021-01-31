@@ -15,6 +15,6 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal);
 bool containsKey(HashStruct *hashStruct, char *key, compare equal);
 void* get(HashStruct *hashStruct, char *key, compare equal);
 void* removeKey(HashStruct *hashStruct, char *key, compare equal);
-void showHashStruct(HashStruct *hashStruct, printNode print);
+void showHashStruct(HashStruct *hashStruct, printNode print); //faltava um argumento o printNode
 
 #endif
