@@ -2,8 +2,8 @@
  * BlockchainTest.c --> Kamilla
  * sha-256.c --> Kamilla
  * Blockchain.c:
- * InitBlockchain --> Naíra
- * IsValidNewBlock --> Naíra
+ * initBlockchain --> Naíra
+ * isValidNewBlock --> Naíra
  */
 
 
