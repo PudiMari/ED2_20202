@@ -13,7 +13,7 @@
 #include <time.h>
 
 
-//Inicialização da estrutura by Naíra
+//inicialização da estrutura by Naíra
 void initBlockchain(Blockchain *blockchain){
     Block *genesisBlock = (Block*)malloc(sizeof(Block));
     genesisBlock->index = 0;
@@ -29,7 +29,7 @@ genesisBlock->timestamp, genesisBlock->data);
     blockchain->latestBlock = genesisBlock;
 }
 
-//Valida a integridade de um bloco by Naíra
+//valida a integridade de um bloco by Naíra
 bool isValidNewBlock(Block* newBlock, Block* previousBlock){
     if(previousBlock->index+1 != newBlock->index){
         return false;
