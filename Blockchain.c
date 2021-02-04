@@ -63,3 +63,13 @@ bool isValidNewBlock(Block* newBlock, Block* previousBlock){
     }
     return true;
 }
+
+//Adiciona um novo bloco by Mariana
+int addBlock(Blockchain *blockchain, Block *newBlock) {
+    if (isValidNewBlock(newBlock, getLatestBlock(blockchain))) {
+        newBlock->previousBlock = getLatestBlock(blockchain);
+        blockchain->latestBlock = newBlock;
+        return 1;
+    }
+    return -1;
+}
