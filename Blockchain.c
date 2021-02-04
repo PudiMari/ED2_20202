@@ -2,8 +2,16 @@
  * BlockchainTest.c --> Kamilla
  * sha-256.c --> Kamilla
  * Blockchain.c:
- * initBlockchain --> Naíra
- * isValidNewBlock --> Naíra
+ *      initBlockchain --> Naíra
+ *      Hash_to_string --> Vinícius
+ *      CalculateHash --> Gustavo
+ *      CalculateBlockHash --> Vinícius
+ *      GenerateNewBlock --> Katia
+ *      GetLatestBlock --> Katia
+ *      IsValidNewBlock --> Naíra
+ *      IsBlockChainValid --> Leonardo
+ *      AddBlock --> Mariana
+ *    
  */
 
 
@@ -27,6 +35,21 @@ genesisBlock->timestamp, genesisBlock->data);
 
     blockchain->genesisBlock = genesisBlock;
     blockchain->latestBlock = genesisBlock;
+}
+
+//Transforma uma hash de 32 bytes em uma string de 64 caracteres by Vinicius
+static void hash_to_string(char string[65], const uint8_t hash[32])
+{
+    size_t i;
+    for (i = 0; i < 32; i++) {
+        //montar uma string com 64 caracteres hexadecimais
+        string += sprintf(string, "%02x", hash[i]); //02x hexadecimal em 2 caracteres
+    }
+}
+
+//calcula a hash de um bloco by vini
+char* calculateBlockHash(Block *block) {
+    return calculateHash(block->index, block->previousHash, block->timestamp, block->data);
 }
 
 //valida a integridade de um bloco by Naíra
