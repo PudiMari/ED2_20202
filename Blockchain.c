@@ -73,3 +73,14 @@ int addBlock(Blockchain *blockchain, Block *newBlock) {
     }
     return -1;
 }
+
+//Valida a integridade de toda a cadeia by Leonardo
+bool isBlockchainValid(Blockchain *blockchain) {
+    Block *aux = getLatestBlock(blockchain);
+    while (aux != blockchain->genesisBlock) {
+        if (!isValidNewBlock(aux, aux->previousBlock))
+            return false;
+        aux = aux->previousBlock;
+    }
+    return true;
+}
