@@ -6,7 +6,7 @@
  *      Hash_to_string --> Vinícius
  *      CalculateHash --> Gustavo
  *      CalculateBlockHash --> Vinícius
- *      GenerateNewBlock --> Katia
+ *      GenerateNextBlock --> Katia
  *      GetLatestBlock --> Katia
  *      IsValidNewBlock --> Naíra
  *      IsBlockChainValid --> Leonardo
@@ -52,6 +52,27 @@ char* calculateBlockHash(Block *block) {
     return calculateHash(block->index, block->previousHash, block->timestamp, block->data);
 }
 
+//cria um novo bloco by Katia
+Block* generateNextBlock(Blockchain *blockchain, float data) {
+    //pega referência ao ultimo bloco da lista
+    Block *previousBlock = getLatestBlock(blockchain);
+    //cria um novo bloco
+    Block *newBlock = (Block*)malloc(sizeof(Block));
+    newBlock->data = data; //atribuição do dado
+    newBlock->previousHash = previousBlock->hash; //atruibuição do hash do bloco anterior
+    newBlock->index = previousBlock->index+1; //atruibuição do index
+    newBlock->timestamp = time(NULL); //atruibuição do horario da geração do bloco
+    newBlock->hash = calculateBlockHash(newBlock); //calculo do novo hash 
+    
+    return newBlock;
+}
+
+//encontra o ultimo bloco da blockchain by Katia
+Block* getLatestBlock(Blockchain *blockchain) {
+    return blockchain->latestBlock;
+}
+
+
 //valida a integridade de um bloco by Naíra
 bool isValidNewBlock(Block* newBlock, Block* previousBlock){
     if(previousBlock->index+1 != newBlock->index){
@@ -64,15 +85,7 @@ bool isValidNewBlock(Block* newBlock, Block* previousBlock){
     return true;
 }
 
-//Adiciona um novo bloco by Mariana
-int addBlock(Blockchain *blockchain, Block *newBlock) {
-    if (isValidNewBlock(newBlock, getLatestBlock(blockchain))) {
-        newBlock->previousBlock = getLatestBlock(blockchain);
-        blockchain->latestBlock = newBlock;
-        return 1;
-    }
-    return -1;
-}
+
 
 //Valida a integridade de toda a cadeia by Leonardo
 bool isBlockchainValid(Blockchain *blockchain) {
@@ -83,4 +96,14 @@ bool isBlockchainValid(Blockchain *blockchain) {
         aux = aux->previousBlock;
     }
     return true;
+}
+
+//Adiciona um novo bloco by Mariana
+int addBlock(Blockchain *blockchain, Block *newBlock) {
+    if (isValidNewBlock(newBlock, getLatestBlock(blockchain))) {
+        newBlock->previousBlock = getLatestBlock(blockchain);
+        blockchain->latestBlock = newBlock;
+        return 1;
+    }
+    return -1;
 }
